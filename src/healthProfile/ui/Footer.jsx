@@ -19,11 +19,10 @@ export default function Footer({ handleStep, currentStep, isLastStep, isSubmitti
           </Button>
         )}
         {isLastStep ? (
-          // Inskickning avstängd tills vidare
           <Button
             key="submit"
             type="submit"
-            disabled
+            disabled={isSubmitting}
             className="w-full md:w-auto"
           >
             {isSubmitting ? "Skickar in..." : "Skicka in"}
