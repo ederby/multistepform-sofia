@@ -150,7 +150,7 @@ export default function Step04Diet02() {
           options={[
             { value: "cookies", label: "Kakor" },
             { value: "chocolate", label: "Choklad" },
-            { value: "candy", label: "Smågosdis" },
+            { value: "candy", label: "Smågodis" },
             { value: "iceCream", label: "Glass" },
             { value: "cereal", label: "Flingor" },
             { value: "soda", label: "Läsk" },

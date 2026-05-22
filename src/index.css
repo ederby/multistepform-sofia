@@ -12,6 +12,10 @@
   --color-secondary: #ffd766;
   --color-white: #f7f3f5;
   --color-black: #404040;
+  --color-heading: #404040;
+  --color-body: #7a7a7a;
+  --color-brand: #7d5051;
+  --color-default-medium: #9ca3af;
 
   --font-sans: "DM Sans", sans-serif;
   --font-serif: "DM Serif Display", serif;

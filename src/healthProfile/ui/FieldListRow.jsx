@@ -45,11 +45,11 @@ export default function FieldListRow({
       })}
 
       <button
-        className={`col-span-1 ${rowsLength > 1 ? "cursor-pointer" : "cursor-not-allowed hidden md:inline"} self-center`}
+        className={`col-span-1 self-center text-primary-100 transition-colors ${rowsLength > 1 ? "cursor-pointer hover:text-primary-600" : "cursor-not-allowed hidden md:inline"}`}
         onClick={() => removeRow(index)}
         type="button"
       >
-        <CircleX strokeWidth={1} color="var(--color-primary-100)" />
+        <CircleX strokeWidth={1} />
       </button>
     </>
   );

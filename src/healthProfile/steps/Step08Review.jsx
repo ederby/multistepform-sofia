@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { getLabel, getLabels } from "../utils/options";
+import { getLabel } from "../utils/options";
 
 function Section({ title, children }) {
   return (
@@ -7,7 +7,7 @@ function Section({ title, children }) {
       <h3 className="text-sm font-semibold text-heading uppercase tracking-wide border-b border-gray-200 pb-1 mb-3">
         {title}
       </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
+      <div className="flex flex-col gap-y-2">
         {children}
       </div>
     </div>
@@ -46,9 +46,7 @@ export default function Step08Review() {
         <Row label="Adress" value={general?.address} />
         <Row label="Yrke" value={general?.occupation} />
         <Row label="Telefon" value={general?.phone} />
-        <div className="col-span-2">
-          <Row label="Söker för" value={general?.notes} />
-        </div>
+        <Row label="Söker för" value={general?.notes} />
       </Section>
 
       <Section title="Medicinsk bakgrund">
@@ -158,21 +156,11 @@ export default function Step08Review() {
         <Row label="Tandproblem" value={symptoms?.dentalIssues} />
         <Row label="Hudsymptom" value={symptoms?.skinSymptoms} />
         <Row label="Hudproblem-plats" value={symptoms?.skinLocation} />
-        <div className="col-span-2">
-          <Row label="Hur mår du nu" value={symptoms?.currentEmotionalState} />
-        </div>
-        <div className="col-span-2">
-          <Row label="Hjärtats önskan" value={symptoms?.heartDesire} />
-        </div>
-        <div className="col-span-2">
-          <Row label="Övrigt" value={symptoms?.otherInfo} />
-        </div>
-        <div className="col-span-2">
-          <Row label="Motivation" value={symptoms?.motivation} />
-        </div>
-        <div className="col-span-2">
-          <Row label="Förbättringsmål" value={symptoms?.improvementGoals} />
-        </div>
+        <Row label="Hur mår du nu" value={symptoms?.currentEmotionalState} />
+        <Row label="Hjärtats önskan" value={symptoms?.heartDesire} />
+        <Row label="Övrigt" value={symptoms?.otherInfo} />
+        <Row label="Motivation" value={symptoms?.motivation} />
+        <Row label="Förbättringsmål" value={symptoms?.improvementGoals} />
       </Section>
     </div>
   );
