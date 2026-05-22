@@ -17,17 +17,17 @@ export default function Button({
           : "";
   const btnVariant =
     variant === "primary"
-      ? "bg-primary-300 text-white border-primary-300"
+      ? "bg-primary-300 text-white border-primary-300 hover:bg-primary-600 hover:border-primary-600"
       : variant === "secondary"
-        ? "border-primary-300 text-primary-300"
-        : "border-gray-400";
+        ? "border-primary-300 text-primary-300 hover:bg-primary-300 hover:text-white"
+        : "border-gray-400 hover:bg-gray-100";
 
   return (
     <button
       onClick={onClick}
       type={type}
       disabled={disabled}
-      className={`cursor-pointer border rounded-lg ${style} ${btnVariant} ${className} disabled:opacity-50 disabled:cursor-not-allowed`}
+      className={`cursor-pointer border rounded-full transition-colors ${style} ${btnVariant} ${className} disabled:opacity-50 disabled:cursor-not-allowed`}
     >
       {children}
     </button>

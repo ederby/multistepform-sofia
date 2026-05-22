@@ -97,7 +97,7 @@ const labelMap = {
   // sugar/fried products
   cookies: "Kakor",
   chocolate: "Choklad",
-  candy: "Smågosdis",
+  candy: "Smågodis",
   iceCream: "Glass",
   cereal: "Flingor",
   soda: "Läsk",
@@ -271,13 +271,4 @@ const labelMap = {
 export function getLabel(value) {
   if (value === null || value === undefined) return "";
   return labelMap[value] ?? value;
-}
-
-export function getLabels(values) {
-  if (!values) return "";
-  if (Array.isArray(values)) {
-    if (values.length === 0) return "";
-    return values.map(getLabel).join(", ");
-  }
-  return getLabel(values);
 }

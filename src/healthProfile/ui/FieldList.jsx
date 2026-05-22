@@ -35,7 +35,7 @@ export default function FieldList({ inputs, product = "rad", name, emptyRow }) {
             inputs={inputs}
             rowsLength={fields.length}
             name={name}
-            required="Detta fält är obligatorisk"
+            required="Detta fält är obligatoriskt"
           />
         </div>
       ))}
