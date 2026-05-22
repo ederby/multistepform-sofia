@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@import "@fontsource/dm-sans/latin-400.css";
+@import "@fontsource/dm-sans/latin-500.css";
+@import "@fontsource/dm-sans/latin-600.css";
+@import "@fontsource/dm-sans/latin-700.css";
+@import "@fontsource/dm-serif-display/latin-400.css";
+
+@theme {
+  --color-primary-100: #b08283;
+  --color-primary-300: #7d5051;
+  --color-primary-600: #583739;
+  --color-secondary: #ffd766;
+  --color-white: #f7f3f5;
+  --color-black: #404040;
+
+  --font-sans: "DM Sans", sans-serif;
+  --font-serif: "DM Serif Display", serif;
+}
+
+body {
+  background: var(--color-primary-100);
+  color: var(--color-white);
+  padding: 20px;
+  font-family: var(--font-sans);
+}
+h1 {
+  font-family: var(--font-serif);
+}
