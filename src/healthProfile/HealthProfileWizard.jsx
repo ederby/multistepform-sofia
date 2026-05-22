@@ -61,11 +61,15 @@ export default function HealthProfileWizard() {
     }
   }
 
-  async function onSubmit() {
+  async function onSubmit(values) {
     setSubmitState("submitting");
     try {
-      // TODO: skicka data till API här
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      const res = await fetch("/.netlify/functions/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      if (!res.ok) throw new Error("Inskickning misslyckades");
       localStorage.removeItem("healthForm");
       setSubmitState("success");
     } catch {
