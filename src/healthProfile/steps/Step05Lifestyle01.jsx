@@ -50,7 +50,9 @@ export default function Step05Lifestyle01() {
           label="Hur trivs du på jobbet/skolan?"
           options={[
             { value: "good", label: "Trivs bra" },
+            { value: "neutral", label: "Varken bra eller dåligt" },
             { value: "bad", label: "Trivs dåligt" },
+            { value: "notApplicable", label: "Ej aktuellt" },
           ]}
           order="row"
           required="Välj ett alternativ"
@@ -64,6 +66,7 @@ export default function Step05Lifestyle01() {
             { value: "low", label: "Bra nivå" },
             { value: "ok", label: "Ok nivå" },
             { value: "high", label: "Hög nivå" },
+            { value: "notApplicable", label: "Ej aktuellt" },
           ]}
           order="row"
           required="Välj ett alternativ"
@@ -77,6 +80,7 @@ export default function Step05Lifestyle01() {
             { value: "stimulating", label: "Stimulerande" },
             { value: "balanced", label: "Balanserad" },
             { value: "heavy", label: "Betungande" },
+            { value: "notApplicable", label: "Ej aktuellt" },
           ]}
           order="row"
           required="Välj ett alternativ"
@@ -104,9 +108,8 @@ export default function Step05Lifestyle01() {
           label="Hur trivs du med din familj?"
           options={[
             { value: "veryGood", label: "Mycket bra" },
-            { value: "veryStress", label: "Mycket stress" },
-            { value: "veryAnxious", label: "Mycket oro" },
-            { value: "allGood", label: "Allt är bra" },
+            { value: "familyMixed", label: "Blandat" },
+            { value: "familyStressful", label: "Mycket stress eller oro" },
           ]}
           order="row"
           required="Välj ett alternativ"
@@ -216,6 +219,7 @@ export default function Step05Lifestyle01() {
             { value: "smokes", label: "Röker" },
             { value: "snuff", label: "Snusar" },
             { value: "nicotineGum", label: "Nikotintuggummi" },
+            { value: "vape", label: "Vejp/e-cigarett" },
             { value: "false", label: "Ingen tobak" },
           ]}
           order="row"

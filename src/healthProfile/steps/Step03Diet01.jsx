@@ -1,11 +1,12 @@
 import { useFormContext } from "react-hook-form";
 import FormCol from "../ui/FormCol";
 import RadioGroup from "../ui/RadioGroup";
+import SelectField from "../ui/SelectField";
 import TextAreaField from "../ui/TextAreaField";
 import Divider from "../ui/Divider";
 import CheckboxGroup from "../ui/CheckboxGroup";
 import TextField from "../ui/TextField";
-import { meatOptions, seafoodOptions } from "../utils/options";
+import { meatOptions, seafoodOptions, frequencyOptions } from "../utils/options";
 
 export default function Step03Diet01() {
   const { watch } = useFormContext();
@@ -45,6 +46,8 @@ export default function Step03Diet01() {
             { value: "irregular", label: "Oregelbundna" },
             { value: "stressEating", label: "Jag äter ofta under stress" },
             { value: "calmEating", label: "Jag äter oftast i lugn och ro" },
+            { value: "skipsMeals", label: "Hoppar ofta över måltider" },
+            { value: "snacksOften", label: "Småäter ofta" },
             { value: "other", label: "Annat" },
           ]}
           order="row"
@@ -129,8 +132,11 @@ export default function Step03Diet01() {
             { value: "boiled", label: "Kokt" },
             { value: "panFried", label: "Stekt" },
             { value: "ovenBaked", label: "Ugnsbakad" },
+            { value: "airfryer", label: "Airfryer" },
             { value: "raw", label: "Rå" },
             { value: "wokFried", label: "Wokad" },
+            { value: "grilled", label: "Grillad" },
+            { value: "steamed", label: "Ångkokt" },
           ]}
           order="row"
           required="Välj ett alternativ"
@@ -178,22 +184,10 @@ export default function Step03Diet01() {
       <Divider />
 
       <FormCol span="full">
-        <RadioGroup
+        <SelectField
           name="diet1.meatConsumption"
           label="Hur ofta äter du kött?"
-          options={[
-            {
-              value: "daily",
-              label: "Dagligen",
-            },
-            {
-              value: "weekly",
-              label: "Några gånger i veckan",
-            },
-            { value: "monthly", label: "Någon gång i månaden" },
-            { value: "false", label: "Aldrig" },
-          ]}
-          order="row"
+          options={frequencyOptions}
           required="Välj ett alternativ"
         />
       </FormCol>
@@ -222,14 +216,13 @@ export default function Step03Diet01() {
                         : "fourth"
                 }
               >
-                <TextField
+                <SelectField
                   name={`diet1.meatFrequency.${type}`}
                   label={
                     meatOptions.find((option) => option.value === type).label
                   }
-                  type="number"
-                  min={0}
-                  required="Detta fält är obligatoriskt"
+                  options={frequencyOptions}
+                  required="Välj ett alternativ"
                 />
               </FormCol>
             ))}
@@ -239,22 +232,10 @@ export default function Step03Diet01() {
       <Divider />
 
       <FormCol span="full">
-        <RadioGroup
+        <SelectField
           name="diet1.seafoodConsumption"
           label="Hur ofta äter du fisk/skaldjur?"
-          options={[
-            {
-              value: "daily",
-              label: "Dagligen",
-            },
-            {
-              value: "weekly",
-              label: "Några gånger i veckan",
-            },
-            { value: "monthly", label: "Någon gång i månaden" },
-            { value: "false", label: "Aldrig" },
-          ]}
-          order="row"
+          options={frequencyOptions}
           required="Välj ett alternativ"
         />
       </FormCol>
@@ -283,14 +264,13 @@ export default function Step03Diet01() {
                         : "fourth"
                 }
               >
-                <TextField
+                <SelectField
                   name={`diet1.seafoodFrequency.${type}`}
                   label={
                     seafoodOptions.find((option) => option.value === type).label
                   }
-                  type="number"
-                  min={0}
-                  required="Detta fält är obligatoriskt"
+                  options={frequencyOptions}
+                  required="Välj ett alternativ"
                 />
               </FormCol>
             ))}
@@ -313,6 +293,7 @@ export default function Step03Diet01() {
               name="diet1.seafoodMethods"
               label="Hur äter du oftast din fisk/skaldjur?"
               options={[
+                { value: "fresh", label: "Färsk" },
                 {
                   value: "can",
                   label: "Burk",

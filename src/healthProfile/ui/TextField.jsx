@@ -48,7 +48,7 @@ export default function TextField({
       <input
         {...register(name, { required, pattern, ...dateValidation, ...minMax })}
         id={name}
-        className={`w-full border ${fieldError ? "border-red-700" : "border-gray-400"} border-default-medium text-heading text-sm rounded-lg focus:ring-primary-100 focus:border-primary-100 block px-3 py-2.5 shadow-xs placeholder:text-body`}
+        className={`w-full border ${fieldError ? "border-red-700" : "border-gray-400"} text-heading text-sm rounded-lg focus:ring-primary-100 focus:border-primary-100 block px-3 py-2.5 shadow-xs placeholder:text-body transition-colors`}
         type={type}
         placeholder={placeholder}
         disabled={disabled}

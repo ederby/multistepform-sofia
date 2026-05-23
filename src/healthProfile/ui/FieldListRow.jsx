@@ -37,7 +37,7 @@ export default function FieldListRow({
               id={`${index}-${input.id}`}
               type={input.type || "text"}
               placeholder={input.placeholder}
-              className={` border-gray-400 w-full border border-default-medium text-heading text-sm rounded focus:ring-brand focus:border-brand block px-3 py-2.5 shadow-xs placeholder:text-body`}
+              className={`w-full border ${inputError ? "border-red-700" : "border-gray-400"} text-heading text-sm rounded-lg focus:ring-primary-100 focus:border-primary-100 block px-3 py-2.5 shadow-xs placeholder:text-body transition-colors`}
             />
             {inputError && <ErrorField>{inputError.message}</ErrorField>}
           </div>

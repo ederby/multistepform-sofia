@@ -2,6 +2,7 @@ import { steps } from "./utils/steps";
 import { useEffect, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { devSeed as seedData } from "./utils/devSeed";
 
 import FormShell from "./ui/FormShell";
 import Header from "./ui/Header";
@@ -11,9 +12,21 @@ import Divider from "./ui/Divider";
 import Welcome from "./ui/Welcome";
 import { deepMerge } from "./utils/storage";
 
+const devSeed = import.meta.env.DEV ? seedData : {};
+
 export default function HealthProfileWizard() {
-  const [started, setStarted] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [started, setStarted] = useState(
+    () => localStorage.getItem("healthFormStarted") === "true",
+  );
+  const [currentStep, setCurrentStep] = useState(() => {
+    const saved = Number(localStorage.getItem("healthFormStep"));
+    if (!Number.isFinite(saved)) return 0;
+    return Math.min(Math.max(saved, 0), steps.length - 1);
+  });
+  const [maxStep, setMaxStep] = useState(() => {
+    const saved = Number(localStorage.getItem("healthFormMaxStep"));
+    return Number.isFinite(saved) ? Math.max(saved, 0) : 0;
+  });
   const [submitState, setSubmitState] = useState("idle");
   const Step = steps[currentStep].component;
   const isLastStep = currentStep === steps.length - 1;
@@ -25,7 +38,7 @@ export default function HealthProfileWizard() {
     .filter((step) => step.defaultValues)
     .reduce((acc, step) => ({ ...acc, ...step.defaultValues }), {});
   const form = useForm({
-    defaultValues: deepMerge(defaultV, savedValues),
+    defaultValues: deepMerge(deepMerge(defaultV, devSeed), savedValues),
     shouldFocusError: true,
   });
   const { handleSubmit, trigger, watch } = form;
@@ -33,6 +46,18 @@ export default function HealthProfileWizard() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentStep]);
+
+  useEffect(() => {
+    localStorage.setItem("healthFormStarted", String(started));
+  }, [started]);
+
+  useEffect(() => {
+    localStorage.setItem("healthFormStep", String(currentStep));
+  }, [currentStep]);
+
+  useEffect(() => {
+    localStorage.setItem("healthFormMaxStep", String(maxStep));
+  }, [maxStep]);
 
   useEffect(() => {
     const { unsubscribe } = watch((values) => {
@@ -53,12 +78,20 @@ export default function HealthProfileWizard() {
         if (firstErrorField) form.setFocus(firstErrorField);
         return;
       }
-      currentStep !== steps.length - 1 &&
-        setCurrentStep((prevStep) => prevStep + 1);
+      if (currentStep !== steps.length - 1) {
+        const next = currentStep + 1;
+        setCurrentStep(next);
+        setMaxStep((prev) => Math.max(prev, next));
+      }
     }
     if (direction === "prev") {
       currentStep !== 0 && setCurrentStep((prevStep) => prevStep - 1);
     }
+  }
+
+  function goToStep(index) {
+    if (index < 0 || index > maxStep || index === currentStep) return;
+    setCurrentStep(index);
   }
 
   async function onSubmit(values) {
@@ -71,6 +104,9 @@ export default function HealthProfileWizard() {
       });
       if (!res.ok) throw new Error("Inskickning misslyckades");
       localStorage.removeItem("healthForm");
+      localStorage.removeItem("healthFormStarted");
+      localStorage.removeItem("healthFormStep");
+      localStorage.removeItem("healthFormMaxStep");
       setSubmitState("success");
     } catch {
       setSubmitState("error");
@@ -126,14 +162,22 @@ export default function HealthProfileWizard() {
       >
         <FormShell>
           <Header title={steps[currentStep].title} />
-          <ProgressBar currentStep={currentStep} />
+          <ProgressBar
+            currentStep={currentStep}
+            maxStep={maxStep}
+            onStepClick={goToStep}
+          />
           <Divider />
-          <Step />
+          <Step goToStep={goToStep} />
           <Footer
             handleStep={handleStep}
             currentStep={currentStep}
             isLastStep={isLastStep}
             isSubmitting={submitState === "submitting"}
+            showSkipToReview={
+              maxStep === steps.length - 1 && currentStep < steps.length - 1
+            }
+            onSkipToReview={() => goToStep(steps.length - 1)}
           />
         </FormShell>
       </form>

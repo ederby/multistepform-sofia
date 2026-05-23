@@ -1,15 +1,24 @@
 import { useFormContext } from "react-hook-form";
 import { getLabel } from "../utils/options";
 
-function Section({ title, children }) {
+function Section({ title, onEdit, children }) {
   return (
     <div className="mb-6">
-      <h3 className="text-sm font-semibold text-heading uppercase tracking-wide border-b border-gray-200 pb-1 mb-3">
-        {title}
-      </h3>
-      <div className="flex flex-col gap-y-2">
-        {children}
+      <div className="flex items-center justify-between border-b border-gray-200 pb-1 mb-3">
+        <h3 className="text-sm font-semibold text-heading uppercase tracking-wide">
+          {title}
+        </h3>
+        {onEdit && (
+          <button
+            type="button"
+            onClick={onEdit}
+            className="text-xs text-primary-300 hover:text-primary-600 cursor-pointer transition-colors"
+          >
+            Ändra
+          </button>
+        )}
       </div>
+      <div className="flex flex-col gap-y-2">{children}</div>
     </div>
   );
 }
@@ -26,7 +35,7 @@ function Row({ label, value }) {
   );
 }
 
-export default function Step08Review() {
+export default function Step08Review({ goToStep }) {
   const { watch } = useFormContext();
   const { general, medical, diet1, diet2, lifestyle1, lifestyle2, symptoms } = watch();
 
@@ -36,7 +45,7 @@ export default function Step08Review() {
         Kontrollera att alla uppgifter stämmer innan du skickar in formuläret.
       </p>
 
-      <Section title="Allmänna uppgifter">
+      <Section title="Allmänna uppgifter" onEdit={() => goToStep(0)}>
         <Row label="Namn" value={general?.name} />
         <Row label="Personnummer" value={general?.personalNumber} />
         <Row label="Datum" value={general?.consultationDate} />
@@ -49,14 +58,14 @@ export default function Step08Review() {
         <Row label="Söker för" value={general?.notes} />
       </Section>
 
-      <Section title="Medicinsk bakgrund">
+      <Section title="Medicinsk bakgrund" onEdit={() => goToStep(1)}>
         <Row label="Sjukdomar/operationer i familjen" value={medical?.familyHistory} />
         <Row label="Anteckningar" value={medical?.familyNotes} />
         <Row label="Mediciner" value={medical?.medicines} />
         <Row label="Annan behandling" value={medical?.otherTreatment === "yes" ? medical?.otherTreatmentDetails : medical?.otherTreatment} />
       </Section>
 
-      <Section title="Kosthållning – del 1">
+      <Section title="Kosthållning – del 1" onEdit={() => goToStep(2)}>
         <Row label="Speciel kost" value={diet1?.hasType === "true" ? diet1?.hasTypeNotes : diet1?.hasType} />
         <Row label="Måltidsvanor" value={diet1?.dietMealPattern} />
         <Row label="Mattyp" value={diet1?.dietFoodType} />
@@ -72,11 +81,11 @@ export default function Step08Review() {
         <Row label="Portioner fisk/vecka" value={diet1?.seafoodWeeklyPortions} />
       </Section>
 
-      <Section title="Kosthållning – del 2">
-        <Row label="Vete (ggr/vecka)" value={diet2?.wheatFrequency} />
-        <Row label="Mjölkprodukter (ggr/vecka)" value={diet2?.dairyFrequency} />
-        <Row label="Socker (ggr/vecka)" value={diet2?.sugarFrequency} />
-        <Row label="Koffein (ggr/vecka)" value={diet2?.caffeineFrequency} />
+      <Section title="Kosthållning – del 2" onEdit={() => goToStep(3)}>
+        <Row label="Vete" value={diet2?.wheatFrequency} />
+        <Row label="Mjölkprodukter" value={diet2?.dairyFrequency} />
+        <Row label="Socker" value={diet2?.sugarFrequency} />
+        <Row label="Koffein" value={diet2?.caffeineFrequency} />
         <Row label="Reaktioner på livsmedel" value={diet2?.foodReactions} />
         <Row label="Reaktionssymptom" value={diet2?.foodReactionSymptoms} />
         <Row label="Socker/friterade produkter" value={diet2?.sugarFriedProducts} />
@@ -90,7 +99,7 @@ export default function Step08Review() {
         <Row label="Allergier/överkänslighet" value={diet2?.allergies} />
       </Section>
 
-      <Section title="Livsstil – del 1">
+      <Section title="Livsstil – del 1" onEdit={() => goToStep(4)}>
         <Row label="Reser" value={lifestyle1?.travelFrequency} />
         <Row label="Besökta länder" value={lifestyle1?.countriesVisited} />
         <Row label="Sjuk på resa" value={lifestyle1?.travelIllness} />
@@ -112,7 +121,7 @@ export default function Step08Review() {
         <Row label="Tobaksmängd" value={lifestyle1?.tobaccoAmount} />
       </Section>
 
-      <Section title="Livsstil – del 2">
+      <Section title="Livsstil – del 2" onEdit={() => goToStep(5)}>
         <Row label="Sömnkvalitet" value={lifestyle2?.sleepQuality} />
         <Row label="Insomning/uppvaknande" value={lifestyle2?.sleepOnset} />
         <Row label="Lägger sig vardagar" value={lifestyle2?.bedtimeWeekdays} />
@@ -132,7 +141,7 @@ export default function Step08Review() {
         <Row label="Immunnot" value={lifestyle2?.immuneNotes} />
       </Section>
 
-      <Section title="Symptom & Avslutning">
+      <Section title="Symptom & Avslutning" onEdit={() => goToStep(6)}>
         <Row label="Mag/tarmsymptom" value={symptoms?.digestiveSymptoms} />
         <Row label="Symptom-timing" value={symptoms?.digestiveTiming} />
         <Row label="Triggers" value={symptoms?.digestiveTriggers} />
