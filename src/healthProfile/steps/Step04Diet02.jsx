@@ -5,6 +5,8 @@ import TextAreaField from "../ui/TextAreaField";
 import Divider from "../ui/Divider";
 import CheckboxGroup from "../ui/CheckboxGroup";
 import TextField from "../ui/TextField";
+import SelectField from "../ui/SelectField";
+import { frequencyOptions } from "../utils/options";
 
 export default function Step04Diet02() {
   const { watch } = useFormContext();
@@ -14,43 +16,35 @@ export default function Step04Diet02() {
     <div className="grid grid-cols-12 gap-x-4 gap-y-4 md:gap-y-6 mt-5 items-end">
       {/* Vete / Mjölkprodukter / Socker / Koffein */}
       <FormCol span="half">
-        <TextField
+        <SelectField
           name="diet2.wheatFrequency"
-          label="Hur många gånger per vecka äter du vete?"
-          placeholder="Tex. bröd, kakor, kex, pasta, bulgur, mussli mm."
-          type="number"
-          min={0}
-          required="Detta fält är obligatoriskt"
+          label="Hur ofta äter du vete? (bröd, pasta, kakor, kex m.m.)"
+          options={frequencyOptions}
+          required="Välj ett alternativ"
         />
       </FormCol>
       <FormCol span="half">
-        <TextField
+        <SelectField
           name="diet2.dairyFrequency"
-          label="Hur många gånger per vecka äter du mjölkprodukter?"
-          placeholder="Tex. mjölk, ost, glass, yoghurt, milkshake mm."
-          type="number"
-          min={0}
-          required="Detta fält är obligatoriskt"
+          label="Hur ofta äter du mjölkprodukter? (mjölk, ost, yoghurt, glass m.m.)"
+          options={frequencyOptions}
+          required="Välj ett alternativ"
         />
       </FormCol>
       <FormCol span="half">
-        <TextField
+        <SelectField
           name="diet2.sugarFrequency"
-          label="Hur många gånger per vecka äter du socker?"
-          placeholder="Tex. kaffebröd, kakor, ketchup, godis, läsk, fruktyoghurt mm."
-          type="number"
-          min={0}
-          required="Detta fält är obligatoriskt"
+          label="Hur ofta äter du socker? (godis, läsk, kakor, fruktyoghurt m.m.)"
+          options={frequencyOptions}
+          required="Välj ett alternativ"
         />
       </FormCol>
       <FormCol span="half">
-        <TextField
+        <SelectField
           name="diet2.caffeineFrequency"
-          label="Hur många gånger per vecka konsumerar du koffein?"
-          placeholder="Tex. kaffe, svart te mm."
-          type="number"
-          min={0}
-          required="Detta fält är obligatoriskt"
+          label="Hur ofta konsumerar du koffein? (kaffe, svart te m.m.)"
+          options={frequencyOptions}
+          required="Välj ett alternativ"
         />
       </FormCol>
 
@@ -58,53 +52,43 @@ export default function Step04Diet02() {
 
       {/* Snabbmat / halvfabrikat */}
       <FormCol span="third">
-        <TextField
+        <SelectField
           name="diet2.fastFood.pizza"
           label="Pizza"
-          placeholder="Ggr/vecka"
-          type="number"
-          min={0}
-          required="Detta fält är obligatoriskt"
+          options={frequencyOptions}
+          required="Välj ett alternativ"
         />
       </FormCol>
       <FormCol span="third">
-        <TextField
+        <SelectField
           name="diet2.fastFood.kebabFalafel"
           label="Kebab/falafel"
-          placeholder="Ggr/vecka"
-          type="number"
-          min={0}
-          required="Detta fält är obligatoriskt"
+          options={frequencyOptions}
+          required="Välj ett alternativ"
         />
       </FormCol>
       <FormCol span="third">
-        <TextField
+        <SelectField
           name="diet2.fastFood.streetFood"
           label="Gatukök"
-          placeholder="Ggr/vecka"
-          type="number"
-          min={0}
-          required="Detta fält är obligatoriskt"
+          options={frequencyOptions}
+          required="Välj ett alternativ"
         />
       </FormCol>
       <FormCol span="third">
-        <TextField
+        <SelectField
           name="diet2.fastFood.burger"
           label="Hamburgare"
-          placeholder="Ggr/vecka"
-          type="number"
-          min={0}
-          required="Detta fält är obligatoriskt"
+          options={frequencyOptions}
+          required="Välj ett alternativ"
         />
       </FormCol>
       <FormCol span="third">
-        <TextField
+        <SelectField
           name="diet2.fastFood.readyMeals"
           label="Hel/halvfabrikat"
-          placeholder="Ggr/vecka"
-          type="number"
-          min={0}
-          required="Detta fält är obligatoriskt"
+          options={frequencyOptions}
+          required="Välj ett alternativ"
         />
       </FormCol>
 
@@ -124,12 +108,16 @@ export default function Step04Diet02() {
             { value: "sugar", label: "Socker" },
             { value: "caffeine", label: "Koffein" },
             { value: "alcohol", label: "Alkohol" },
+            { value: "egg", label: "Ägg" },
+            { value: "gluten", label: "Gluten" },
+            { value: "false", label: "Inga reaktioner" },
           ]}
           order="row"
         />
       </FormCol>
 
-      {values.foodReactions.length > 0 && (
+      {values.foodReactions.length > 0 &&
+        !values.foodReactions.includes("false") && (
         <FormCol span="full">
           <TextAreaField
             name="diet2.foodReactionSymptoms"
@@ -180,13 +168,11 @@ export default function Step04Diet02() {
 
       {values.sugarFriedProducts.length > 0 && (
         <FormCol span="half">
-          <TextField
+          <SelectField
             name="diet2.sugarFriedFrequency"
-            label="Hur många gånger i veckan?"
-            placeholder="Antal gånger"
-            type="number"
-            min={0}
-            required="Detta fält är obligatoriskt"
+            label="Hur ofta äter du dessa?"
+            options={frequencyOptions}
+            required="Välj ett alternativ"
           />
         </FormCol>
       )}
@@ -210,11 +196,12 @@ export default function Step04Diet02() {
       {values.drinksAlcohol === "true" && (
         <>
           <FormCol span="half">
-            <RadioGroup
+            <CheckboxGroup
               name="diet2.alcoholPreference"
               label="Vad föredrar du?"
               options={[
                 { value: "beer", label: "Öl" },
+                { value: "cider", label: "Cider" },
                 { value: "wine", label: "Vin" },
                 { value: "spirits", label: "Starksprit" },
               ]}

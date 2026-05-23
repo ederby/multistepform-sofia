@@ -3,6 +3,8 @@ export const meatOptions = [
   { value: "pork", label: "Gris" },
   { value: "poultry", label: "Fågel" },
   { value: "game", label: "Vilt" },
+  { value: "lamb", label: "Lamm" },
+  { value: "charcuterie", label: "Chark" },
 ];
 
 export const seafoodOptions = [
@@ -15,6 +17,14 @@ export const seafoodOptions = [
   { value: "mussels", label: "Musslor" },
   { value: "crustaceans", label: "Kräftdjur (kräftor/hummer)" },
   { value: "otherSeafood", label: "Annat skaldjur" },
+];
+
+export const frequencyOptions = [
+  { value: "daily", label: "Dagligen" },
+  { value: "weekly", label: "Några gånger i veckan" },
+  { value: "monthly", label: "Någon gång i månaden" },
+  { value: "seldom", label: "Mer sällan" },
+  { value: "false", label: "Aldrig" },
 ];
 
 const labelMap = {
@@ -33,6 +43,8 @@ const labelMap = {
   irregular: "Oregelbunden",
   stressEating: "Äter ofta under stress",
   calmEating: "Äter oftast i lugn och ro",
+  skipsMeals: "Hoppar ofta över måltider",
+  snacksOften: "Småäter ofta",
 
   // food type
   mostlyHomecooked: "Främst hemlagad",
@@ -48,17 +60,23 @@ const labelMap = {
   ovenBaked: "Ugnsbakad",
   raw: "Rå",
   wokFried: "Wokad",
+  airfryer: "Airfryer",
+  grilled: "Grillad",
+  steamed: "Ångkokt",
 
   // frequency
   daily: "Dagligen",
   weekly: "Några gånger/vecka",
   monthly: "Någon gång/månaden",
+  seldom: "Mer sällan",
 
   // meat
   beef: "Nöt",
   pork: "Gris",
   poultry: "Fågel",
   game: "Vilt",
+  lamb: "Lamm",
+  charcuterie: "Chark",
 
   // seafood
   salmon: "Lax",
@@ -72,6 +90,7 @@ const labelMap = {
   otherSeafood: "Annat skaldjur",
 
   // seafood methods
+  fresh: "Färsk",
   can: "Burk",
   frozen: "Fryst",
   smoked: "Rökt",
@@ -93,6 +112,8 @@ const labelMap = {
   sugar: "Socker",
   caffeine: "Koffein",
   alcohol: "Alkohol",
+  egg: "Ägg",
+  gluten: "Gluten",
 
   // sugar/fried products
   cookies: "Kakor",
@@ -110,6 +131,7 @@ const labelMap = {
 
   // alcohol
   beer: "Öl",
+  cider: "Cider",
   wine: "Vin",
   spirits: "Starksprit",
 
@@ -119,6 +141,7 @@ const labelMap = {
 
   // work
   good: "Trivs bra",
+  neutral: "Varken bra eller dåligt",
   bad: "Trivs dåligt",
   low: "Bra nivå",
   ok: "Ok nivå",
@@ -126,17 +149,18 @@ const labelMap = {
   stimulating: "Stimulerande",
   balanced: "Balanserad",
   heavy: "Betungande",
+  notApplicable: "Ej aktuellt",
 
   // family
   veryGood: "Mycket bra",
-  veryStress: "Mycket stress",
-  veryAnxious: "Mycket oro",
-  allGood: "Allt är bra",
+  familyMixed: "Blandat",
+  familyStressful: "Mycket stress eller oro",
 
   // tobacco
   smokes: "Röker",
   snuff: "Snusar",
   nicotineGum: "Nikotintuggummi",
+  vape: "Vejp/e-cigarett",
 
   // sleep quality
   deep: "Djup sömn",
@@ -147,6 +171,7 @@ const labelMap = {
   easyToSleep: "Lätt att somna",
   hardToSleep: "Svårt att somna",
   hardToWake: "Svårt att vakna",
+  easyToWake: "Lätt att vakna",
 
   // energy
   morning: "Morgon",
@@ -154,12 +179,15 @@ const labelMap = {
   lunch: "Lunch",
   afternoon: "Eftermiddag",
   evening: "Kväll",
+  night: "Natt",
 
   // cognitive
   goodMemory: "Bra minne",
+  poorMemory: "Dåligt minne",
   poorLearning: "Dålig inlärning",
   hardDecisions: "Svårt att ta beslut",
   hardFocus: "Svårt att koncentrera sig",
+  brainFog: "Hjärndimma",
 
   // breathing
   calmBreathing: "Andas lugnt",
@@ -195,12 +223,14 @@ const labelMap = {
   reflux: "Sura uppstötningar",
   nausea: "Illamående",
   bloated: "Uppsvälld",
+  abdominalPain: "Magont/buksmärta",
   beforeMeal: "Före måltid",
   afterMeal: "Efter måltid",
   skippedMeal: "Hoppar över måltid",
   heavyMeal: "Tunga/sena måltider",
 
   // stool
+  normal: "Normal",
   hard: "Hård",
   soft: "Mjuk",
   loose: "Lös",
@@ -220,11 +250,19 @@ const labelMap = {
   angry: "Ilsken",
   sugarCraving: "Stort sötsug",
   fragile: "Skör",
+  tenderBreasts: "Ömma bröst",
+  bloating: "Svullnad/vätska",
+  headache: "Huvudvärk",
+  fatigue: "Trötthet",
 
   // menopause
   hotFlashes: "Svettningar",
+  flushes: "Värmevallningar",
   dryMucosa: "Sköra slemhinnor",
   osteoporosis: "Benskörhet",
+  sleepProblems: "Sömnstörningar",
+  palpitations: "Hjärtklappning",
+  weightGain: "Viktuppgång",
 
   // joint/muscle
   pain: "Smärta",
@@ -233,6 +271,11 @@ const labelMap = {
   weakMuscles: "Försvagade muskler",
   cramps: "Kramper",
   weakStrength: "Svag styrka",
+  swelling: "Svullnad",
+  clicking: "Knakande/knäppningar",
+  limitedMotion: "Rörelseinskränkning",
+  tension: "Spänningar",
+  twitching: "Ryckningar",
 
   // circulation
   handsWhite: "Händer/fötter vita",
@@ -240,6 +283,9 @@ const labelMap = {
   handsWarm: "Händer/fötter varma",
   numbWarm: "Domnar vid värme",
   numbCold: "Domnar vid kyla",
+  swollenLegs: "Svullna ben/fötter",
+  varicoseVeins: "Åderbråck",
+  tingling: "Stickningar",
 
   // dental fillings
   plastic: "Plast",
@@ -253,6 +299,8 @@ const labelMap = {
   gumDisease: "Tandlossning",
   toothPain: "Tandvärk",
   tenseJaw: "Spännda käkar",
+  bleedingGums: "Blödande tandkött",
+  caries: "Hål/karies",
 
   // skin
   acne: "Akne",
@@ -266,6 +314,7 @@ const labelMap = {
   poorHealing: "Nedsatt sårläkning",
   fungal: "Svampig",
   sweatsEasily: "Svettas lätt",
+  itchySkin: "Klåda",
 };
 
 export function getLabel(value) {

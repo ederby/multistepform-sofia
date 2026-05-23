@@ -6,91 +6,9 @@ import Divider from "../ui/Divider";
 import CheckboxGroup from "../ui/CheckboxGroup";
 import TextField from "../ui/TextField";
 
-export default function Step07Symptoms() {
-  const { watch } = useFormContext();
-  const values = watch("symptoms");
-
+function WomenSection() {
   return (
-    <div className="grid grid-cols-12 gap-x-4 gap-y-4 md:gap-y-6 mt-5 items-end">
-
-      {/* Matsmältning */}
-      <FormCol span="full">
-        <CheckboxGroup
-          name="symptoms.digestiveSymptoms"
-          label="Vilka mag- och tarmsymptom stämmer in på dig?"
-          options={[
-            { value: "gas", label: "Gaser" },
-            { value: "diarrhea", label: "Diarré" },
-            { value: "constipation", label: "Förstoppning" },
-            { value: "itching", label: "Klåda i ändtarmen" },
-            { value: "reflux", label: "Sura uppstötningar" },
-            { value: "nausea", label: "Illamående" },
-            { value: "bloated", label: "Uppsvälld" },
-          ]}
-          order="row"
-        />
-      </FormCol>
-
-      {values.digestiveSymptoms.length > 0 && (
-        <>
-          <FormCol span="full">
-            <CheckboxGroup
-              name="symptoms.digestiveTiming"
-              label="När känner du av dessa symptom?"
-              options={[
-                { value: "beforeMeal", label: "Före måltid" },
-                { value: "afterMeal", label: "Efter måltid" },
-                { value: "skippedMeal", label: "Om jag hoppar över en måltid" },
-                { value: "heavyMeal", label: "Vid tunga/sena måltider" },
-              ]}
-              order="row"
-              required="Välj ett alternativ"
-            />
-          </FormCol>
-          <FormCol span="half">
-            <TextAreaField
-              name="symptoms.digestiveTriggers"
-              label="Är det något annat som triggar dessa symptom?"
-              rows={2}
-            />
-          </FormCol>
-          <FormCol span="half">
-            <TextAreaField
-              name="symptoms.digestiveAfterFood"
-              label="Får du dessa symptom efter någon speciell typ av kost?"
-              rows={2}
-            />
-          </FormCol>
-        </>
-      )}
-
-      <FormCol span="half">
-        <CheckboxGroup
-          name="symptoms.stoolConsistency"
-          label="Hur upplever du oftast din avföring?"
-          options={[
-            { value: "hard", label: "Hård" },
-            { value: "soft", label: "Mjuk" },
-            { value: "loose", label: "Lös" },
-            { value: "watery", label: "Vattnig" },
-            { value: "sticky", label: "Kladdig" },
-            { value: "mucus", label: "Slem" },
-            { value: "liquid", label: "Flytande" },
-          ]}
-          order="col"
-          required="Välj ett alternativ"
-        />
-      </FormCol>
-      <FormCol span="half">
-        <TextField
-          name="symptoms.bowelFrequency"
-          label="Hur ofta har du tarmtömning?"
-          placeholder="T.ex. 1 gång per dag, 3 gånger i veckan"
-          type="text"
-          required="Detta fält är obligatoriskt"
-        />
-      </FormCol>
-
+    <>
       <Divider />
 
       {/* För kvinnor */}
@@ -104,6 +22,7 @@ export default function Step07Symptoms() {
           label="Hur lång är din menstruation?"
           options={[
             { value: "short", label: "Kort" },
+            { value: "normal", label: "Normal" },
             { value: "long", label: "Lång" },
           ]}
           order="row"
@@ -148,6 +67,10 @@ export default function Step07Symptoms() {
             { value: "angry", label: "Ilsken" },
             { value: "sugarCraving", label: "Stort sötsug" },
             { value: "fragile", label: "Skör" },
+            { value: "tenderBreasts", label: "Ömma bröst" },
+            { value: "bloating", label: "Svullnad/vätska" },
+            { value: "headache", label: "Huvudvärk" },
+            { value: "fatigue", label: "Trötthet" },
           ]}
           order="row"
         />
@@ -159,8 +82,13 @@ export default function Step07Symptoms() {
           label="Hur är dina klimakteriesymptom?"
           options={[
             { value: "hotFlashes", label: "Svettningar" },
+            { value: "flushes", label: "Värmevallningar" },
             { value: "dryMucosa", label: "Sköra slemhinnor" },
             { value: "osteoporosis", label: "Benskörhet" },
+            { value: "sleepProblems", label: "Sömnstörningar" },
+            { value: "moodSwings", label: "Humörsvängningar" },
+            { value: "palpitations", label: "Hjärtklappning" },
+            { value: "weightGain", label: "Viktuppgång" },
           ]}
           order="row"
         />
@@ -181,6 +109,101 @@ export default function Step07Symptoms() {
           rows={2}
         />
       </FormCol>
+    </>
+  );
+}
+
+export default function Step07Symptoms() {
+  const { watch } = useFormContext();
+  const values = watch("symptoms");
+  const gender = watch("general.gender");
+
+  return (
+    <div className="grid grid-cols-12 gap-x-4 gap-y-4 md:gap-y-6 mt-5 items-end">
+
+      {/* Matsmältning */}
+      <FormCol span="full">
+        <CheckboxGroup
+          name="symptoms.digestiveSymptoms"
+          label="Vilka mag- och tarmsymptom stämmer in på dig?"
+          options={[
+            { value: "gas", label: "Gaser" },
+            { value: "diarrhea", label: "Diarré" },
+            { value: "constipation", label: "Förstoppning" },
+            { value: "itching", label: "Klåda i ändtarmen" },
+            { value: "reflux", label: "Sura uppstötningar" },
+            { value: "nausea", label: "Illamående" },
+            { value: "bloated", label: "Uppsvälld" },
+            { value: "abdominalPain", label: "Magont/buksmärta" },
+            { value: "false", label: "Inga besvär" },
+          ]}
+          order="row"
+        />
+      </FormCol>
+
+      {values.digestiveSymptoms.length > 0 &&
+        !values.digestiveSymptoms.includes("false") && (
+        <>
+          <FormCol span="full">
+            <CheckboxGroup
+              name="symptoms.digestiveTiming"
+              label="När känner du av dessa symptom?"
+              options={[
+                { value: "beforeMeal", label: "Före måltid" },
+                { value: "afterMeal", label: "Efter måltid" },
+                { value: "skippedMeal", label: "Om jag hoppar över en måltid" },
+                { value: "heavyMeal", label: "Vid tunga/sena måltider" },
+              ]}
+              order="row"
+              required="Välj ett alternativ"
+            />
+          </FormCol>
+          <FormCol span="half">
+            <TextAreaField
+              name="symptoms.digestiveTriggers"
+              label="Är det något annat som triggar dessa symptom?"
+              rows={2}
+            />
+          </FormCol>
+          <FormCol span="half">
+            <TextAreaField
+              name="symptoms.digestiveAfterFood"
+              label="Får du dessa symptom efter någon speciell typ av kost?"
+              rows={2}
+            />
+          </FormCol>
+        </>
+      )}
+
+      <FormCol span="half">
+        <CheckboxGroup
+          name="symptoms.stoolConsistency"
+          label="Hur upplever du oftast din avföring?"
+          options={[
+            { value: "normal", label: "Normal" },
+            { value: "hard", label: "Hård" },
+            { value: "soft", label: "Mjuk" },
+            { value: "loose", label: "Lös" },
+            { value: "watery", label: "Vattnig" },
+            { value: "sticky", label: "Kladdig" },
+            { value: "mucus", label: "Slem" },
+            { value: "liquid", label: "Flytande" },
+          ]}
+          order="col"
+          required="Välj ett alternativ"
+        />
+      </FormCol>
+      <FormCol span="half">
+        <TextField
+          name="symptoms.bowelFrequency"
+          label="Hur ofta har du tarmtömning?"
+          placeholder="T.ex. 1 gång per dag, 3 gånger i veckan"
+          type="text"
+          required="Detta fält är obligatoriskt"
+        />
+      </FormCol>
+
+      {gender === "female" && <WomenSection />}
 
       <Divider />
 
@@ -193,15 +216,17 @@ export default function Step07Symptoms() {
             { value: "pain", label: "Smärta" },
             { value: "stiffness", label: "Stelhet" },
             { value: "soreness", label: "Ömhet" },
-            { value: "weakMuscles", label: "Försvagade muskler" },
-            { value: "cramps", label: "Kramper" },
-            { value: "weakStrength", label: "Svag styrka" },
+            { value: "swelling", label: "Svullnad" },
+            { value: "clicking", label: "Knakande/knäppningar" },
+            { value: "limitedMotion", label: "Rörelseinskränkning" },
+            { value: "false", label: "Inga besvär" },
           ]}
           order="row"
         />
       </FormCol>
 
-      {values.jointSymptoms.length > 0 && (
+      {values.jointSymptoms.length > 0 &&
+        !values.jointSymptoms.includes("false") && (
         <>
           <FormCol span="half">
             <TextField
@@ -236,12 +261,16 @@ export default function Step07Symptoms() {
             { value: "weakMuscles", label: "Försvagade muskler" },
             { value: "cramps", label: "Kramper" },
             { value: "weakStrength", label: "Svag styrka" },
+            { value: "tension", label: "Spänningar" },
+            { value: "twitching", label: "Ryckningar" },
+            { value: "false", label: "Inga besvär" },
           ]}
           order="row"
         />
       </FormCol>
 
-      {values.muscleSymptoms.length > 0 && (
+      {values.muscleSymptoms.length > 0 &&
+        !values.muscleSymptoms.includes("false") && (
         <>
           <FormCol span="half">
             <TextField
@@ -275,12 +304,17 @@ export default function Step07Symptoms() {
             { value: "handsWarm", label: "Händer/fötter blir lätt varma" },
             { value: "numbWarm", label: "Domnar vid varmt väder" },
             { value: "numbCold", label: "Domnar vid kallt väder" },
+            { value: "swollenLegs", label: "Svullna ben/fötter" },
+            { value: "varicoseVeins", label: "Åderbråck" },
+            { value: "tingling", label: "Stickningar" },
+            { value: "false", label: "Inga besvär" },
           ]}
           order="row"
         />
       </FormCol>
 
-      {values.circulationSymptoms.length > 0 && (
+      {values.circulationSymptoms.length > 0 &&
+        !values.circulationSymptoms.includes("false") && (
         <FormCol span="full">
           <TextField
             name="symptoms.circulationOther"
@@ -302,6 +336,7 @@ export default function Step07Symptoms() {
             { value: "porcelain", label: "Porslin" },
             { value: "amalgam", label: "Amalgam" },
             { value: "gold", label: "Guld" },
+            { value: "false", label: "Inga fyllningar" },
           ]}
           order="row"
         />
@@ -316,6 +351,9 @@ export default function Step07Symptoms() {
             { value: "gumDisease", label: "Tandlossning" },
             { value: "toothPain", label: "Tandvärk" },
             { value: "tenseJaw", label: "Spännda käkar" },
+            { value: "bleedingGums", label: "Blödande tandkött" },
+            { value: "caries", label: "Hål/karies" },
+            { value: "false", label: "Inget av detta" },
           ]}
           order="row"
         />
@@ -340,12 +378,15 @@ export default function Step07Symptoms() {
             { value: "poorHealing", label: "Nedsatt sårläkning" },
             { value: "fungal", label: "Svampig" },
             { value: "sweatsEasily", label: "Svettas lätt" },
+            { value: "itchySkin", label: "Klåda" },
+            { value: "false", label: "Inga besvär" },
           ]}
           order="row"
         />
       </FormCol>
 
-      {values.skinSymptoms.length > 0 && (
+      {values.skinSymptoms.length > 0 &&
+        !values.skinSymptoms.includes("false") && (
         <FormCol span="full">
           <TextField
             name="symptoms.skinLocation"

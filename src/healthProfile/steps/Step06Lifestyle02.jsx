@@ -37,6 +37,7 @@ export default function Step06Lifestyle02() {
             { value: "easyToSleep", label: "Lätt att somna" },
             { value: "hardToSleep", label: "Svårt att somna" },
             { value: "hardToWake", label: "Svårt att vakna" },
+            { value: "easyToWake", label: "Lätt att vakna" },
           ]}
           order="row"
           required="Välj ett alternativ"
@@ -93,6 +94,7 @@ export default function Step06Lifestyle02() {
             { value: "lunch", label: "Lunch" },
             { value: "afternoon", label: "EM" },
             { value: "evening", label: "Kväll" },
+            { value: "night", label: "Natt" },
           ]}
           order="row"
           required="Välj ett alternativ"
@@ -108,6 +110,7 @@ export default function Step06Lifestyle02() {
             { value: "lunch", label: "Lunch" },
             { value: "afternoon", label: "EM" },
             { value: "evening", label: "Kväll" },
+            { value: "night", label: "Natt" },
           ]}
           order="row"
           required="Välj ett alternativ"
@@ -170,9 +173,11 @@ export default function Step06Lifestyle02() {
           label="Vilka alternativ stämmer in på dig?"
           options={[
             { value: "goodMemory", label: "Bra minne" },
+            { value: "poorMemory", label: "Dåligt minne" },
             { value: "poorLearning", label: "Dålig inlärning" },
             { value: "hardDecisions", label: "Svårt att ta beslut" },
             { value: "hardFocus", label: "Svårt att koncentrera mig" },
+            { value: "brainFog", label: "Hjärndimma" },
           ]}
           order="row"
           required="Välj ett alternativ"
@@ -242,6 +247,7 @@ export default function Step06Lifestyle02() {
             { value: "infectionProne", label: "Infektionskänslig" },
             { value: "easyColds", label: "Får lätt förkylningar" },
             { value: "easilyInfected", label: "Smittas lätt av andra" },
+            { value: "false", label: "Sällan sjuk" },
           ]}
           order="row"
         />
